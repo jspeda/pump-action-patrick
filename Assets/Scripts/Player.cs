@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
     public void Rotate()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //get mouse position
-        Quaternion look = Quaternion.LookRotation(transform.position - mousePosition);
+        Quaternion look = Quaternion.LookRotation(transform.position - mousePosition, Vector3.forward);
         //make a Rotation object by subtracting the mouse coords from the player coords (vectors are wild!!!)
         transform.rotation = look;
         transform.localEulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
