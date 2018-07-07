@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 	[SerializeField]
 	private float speed;
 	private Vector2 direction;
+    private 
 
 	// Use this for initialization
 	void Start () {
@@ -17,14 +18,27 @@ public class Player : MonoBehaviour {
 	void Update () {
 		GetInput();
 		Move();
+        Rotate();
 	}
 
 	public void Move() {
-		transform.Translate(direction * speed * Time.deltaTime);
-		Debug.Log("hi");
-	}
+		transform.Translate(direction * speed * Time.deltaTime, Space.World);
+    }
 
-	private void GetInput(){
+    public void Rotate()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //get mouse position
+        Quaternion look = Quaternion.LookRotation(transform.position - mousePosition);
+        //make a Rotation object by subtracting the mouse coords from the player coords (vectors are wild!!!)
+        transform.rotation = look;
+        transform.localEulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+        //change the player rotation to that rotation, set its x & y rotations to zero
+        if (Input.GetKey(KeyCode.Q)) {
+            Debug.Log(transform.position + " || " + mousePosition + " || " + transform.eulerAngles.z);
+        }
+    }
+
+    private void GetInput(){
 		direction = Vector2.zero;
 
 		if (Input.GetKey(KeyCode.W)) {
