@@ -24,4 +24,9 @@ public class PauseGame : MonoBehaviour {
 			Time.timeScale = 1;
 		}
 	}
+
+	public void ExitGame () {
+		Application.Quit();
+		Debug.Log("Game is quitting.");
+	}
 }
